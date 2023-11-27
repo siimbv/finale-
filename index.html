@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SVT</title>
+    <link rel="stylesheet" href="styles.css">  
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+    <!-- Browser Icon-->
+    <link rel="icon" href="Arrows.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-dark" style="background-color: #232F3E">
+            <div class="container justify-content-center">
+                <div class="color-overlay"></div>
+                <img src="amazon-logo.png" alt="Amazon" class="amzn-logo">
+                <img src="wrap-arrows.png" alt="Arrows" class="wrap-arrows">
+                <a class="navbar-brand" href="#">Swapper</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <form id="usernameForm" class="custom-form">
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="username1">Username 1:</label>
+                            <input type="text" class="form-control" name="username1" id="username1" required><br>
+                            <div id="errorUsername1" class="error-message" style="display: none;">Enter the username</div>
+                        </div>
+                        <div class="col">
+                            <label for="username2">Username 2:</label>
+                            <input type="text" class="form-control" name="username2" id="username2" required><br>
+                            <div id="errorUsername2" class="error-message" style="display: none;">Enter the username</div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn btn-primary" id="submitButton">Submit</button>
+                    </div>
+                    <div id="swapStatus" class="swap-status"></div>
+                    <div id="statusMessage"></div>
+                    <div id="resultContainer"></div>
+                    <div id="fileList"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="upload-button">
+        <a href="login.html" class="btn btn-primary">Upload</a>
+    </div>
+
+    <div class="footer">
+        <p>Project Manager: Mohamed Salah (moesalah)</p>
+        <p>Developed by: Osama Abdelrahman (osoabdel)</p>
+    </div>
+
+
+        <script src="myscripts.js"></script>
+        <script>$.ajax({
+            type: 'POST',
+            url: '/run-server-script',
+            data: {
+                username1: 'user1',
+                username2: 'user2',
+            },
+            success: function(data) {
+                handleResult(data); // Call handleResult with the received data
+            },
+            error: function(error) {
+                console.error('Error during AJAX request:', error);
+                // Handle error as needed
+            }
+        });</script>
+    </body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Uploaded Excel Sheets</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    <link rel="icon" href="Arrows.png" type="image/x-icon">
+
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-dark" style="background-color: #232F3E">
+            <div class="container justify-content-center">
+                <div class="color-overlay"></div>
+                <img src="amazon-logo.png" alt="Amazon" class="amzn-logo">
+                <img src="wrap-arrows.png" alt="Arrows" class="wrap-arrows">
+                <a class="navbar-brand" href="#">Swapper</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="upload-button">
+        <a href="index.html" class="btn btn-primary">Home</a>
+    </div>
+
+    <!-- Add a file input and buttons for upload, download, and delete -->
+    <input type="file" id="fileInput" accept=".xls, .xlsx" multiple>
+    <button onclick="uploadFile()">Upload</button>
+    <button onclick="downloadFile()">Download</button>
+    <button onclick="deleteFile()">Delete</button>
+    <button onclick="openFile()">Open</button>
+    <ul id="fileList" onclick="selectFile(event)"></ul>
+
+
+    <div id="uploadedFilesList"></div> <!-- Correct the id for displaying uploaded files -->
+
+
+
+    <div class="footer">
+        <p>Project Manager: Mohamed Salah (moesalah)</p>
+        <p>Developed by: Osama Abdelrahman (osoabdel)</p>
+    </div>
+
+
+
+    <script>
+        function handleFileUpload(e) {
+            const file = e.target.files[0];
+    
+            if (file) {
+                const reader = new FileReader();
+    
+                reader.onload = function (e) {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+    
+                    // Store the data in localStorage
+                    localStorage.setItem('excelData', JSON.stringify(jsonData));
+                };
+    
+                reader.readAsArrayBuffer(file);
+            }
+        }
+    
+        document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js" defer></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="myscripts.js"></script>
+</body>
+</html>
